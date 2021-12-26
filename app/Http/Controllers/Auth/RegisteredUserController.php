@@ -50,6 +50,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        session()->flash('message', 'ユーザー登録しました。');
+
         return redirect(RouteServiceProvider::HOME);
     }
 }
