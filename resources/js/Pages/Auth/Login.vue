@@ -44,7 +44,7 @@ import BreezeGuestLayout from '@/Layouts/Guest.vue'
 import BreezeInput from '@/Components/Input.vue'
 import BreezeLabel from '@/Components/Label.vue'
 import BreezeValidationErrors from '@/Components/ValidationErrors.vue'
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
 
 export default {
     layout: BreezeGuestLayout,
@@ -79,6 +79,24 @@ export default {
             this.form.post(this.route('login'), {
                 onFinish: () => this.form.reset('password'),
             })
+        }
+    },
+
+    setup() {
+        const form = useForm({
+            email: '',
+            password: '',
+            remember: false
+        })
+
+        const submit = () => {
+            form.post('login', {
+                onFinish: () => form.reset('password'),
+            })
+        }
+
+        return {
+            submit
         }
     }
 }
