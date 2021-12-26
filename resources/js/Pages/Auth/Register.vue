@@ -72,7 +72,8 @@ export default {
         }
 
         return {
-            submit
+            submit,
+            form,
         }
     }
 }
