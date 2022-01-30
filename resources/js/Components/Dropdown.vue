@@ -28,9 +28,15 @@
 </template>
 
 <script>
-import { onMounted, onUnmounted, ref } from 'vue'
 
 export default {
+    data() {
+        return {
+            open: false,
+
+        }
+    },
+
     props: {
         align: {
             default: 'right'
@@ -43,21 +49,20 @@ export default {
         }
     },
 
-    setup() {
-        let open = ref(false)
-
-        const closeOnEscape = (e) => {
-            if (open.value && e.key === 'Escape') {
-                open.value = false
+    methods: {
+        closeOnEscape(e) {
+            if (this.open && e.key === 'Escape') {
+                this.open = false
             }
         }
+    },
 
-        onMounted(() => document.addEventListener('keydown', closeOnEscape))
-        onUnmounted(() => document.removeEventListener('keydown', closeOnEscape))
+    mounted() {
+        document.addEventListener('keydown', closeOnEscape)
+    },
 
-        return {
-            open,
-        }
+    destroyed() {
+        document.removeEventListener('keydown', closeOnEscape)
     },
 
     computed: {
